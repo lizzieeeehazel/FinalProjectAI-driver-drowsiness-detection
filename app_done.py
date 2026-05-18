@@ -1,3 +1,4 @@
+
 import streamlit as st
 from ultralytics import YOLO
 import numpy as np
@@ -157,5 +158,4 @@ if start:
                 threading.Thread(target=play_alarm).start()
 
         frame_window.image(frame, channels="BGR")
-
-    cap.release()
+cap.release()
