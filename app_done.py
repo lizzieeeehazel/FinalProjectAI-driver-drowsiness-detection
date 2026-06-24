@@ -1,4 +1,5 @@
-
+import av
+from streamlit_webrtc import webrtc_streamer, VideoProcessorBase
 import streamlit as st
 from ultralytics import YOLO
 import numpy as np
@@ -92,21 +93,20 @@ class_names = {
 8: "Miring Kiri Sadar"
 }
 
+frame_window = st.empty()
 
-# =========================
-# WEBCAM MODE
-# =========================
-st.subheader("Webcam Detection")
+start = st.button("Start Detection")
 
-start = st.button("Start Camera")
-
-frame_window = st.image([])
+if start:
+    st.write("Deteksi dimulai")
 
 if start:
 
     cap = cv2.VideoCapture(0)
-
+    cap.set(cv2.CAP_PROP_FRAME_HEIGHT, 480)
+    
     while cap.isOpened():
+
 
         ret, frame = cap.read()
 
@@ -147,9 +147,6 @@ if start:
                     2
                 )
 
-        # =========================
-        # LOGIC ALARM
-        # =========================
         current_time = time.time()
 
         if detected_yawn:
@@ -158,4 +155,5 @@ if start:
                 threading.Thread(target=play_alarm).start()
 
         frame_window.image(frame, channels="BGR")
-cap.release()
+
+    cap.release()
