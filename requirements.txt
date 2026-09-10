@@ -5,3 +5,4 @@ pillow
 numpy
 av
 streamlit-webrtc
+playsound==1.2.2
